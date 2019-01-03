@@ -11,4 +11,6 @@ Atom atom_parsePDB(char* pdbAtomLine);
 
 void atom_destroy(Atom atom);
 
+float atom_bondLength(Atom atom1,Atom atom2);
+
 #endif

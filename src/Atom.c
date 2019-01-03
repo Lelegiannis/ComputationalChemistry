@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "Atom.h"
 
 struct Atom{
@@ -63,6 +64,16 @@ char* xyz_z = strtok(NULL,"\t ");
 Atom atom_parsePDB(char* pdbAtomLine){
 	/*Under construction*/
 	return NULL;
+}
+
+float atom_bondLength(Atom atom1,Atom atom2){
+	float xdiff = atom1->x - atom2->x;
+	float ydiff = atom1->y - atom2->y;
+	float zdiff = atom1->z - atom2->z;
+
+	float lengthSquared = xdiff*xdiff + ydiff*ydiff + zdiff*zdiff;
+
+	return sqrtf(lengthSquared);
 }
 
 void atom_destroy(Atom atom){
