@@ -13,4 +13,6 @@ void atom_destroy(Atom atom);
 
 float atom_bondLength(Atom atom1,Atom atom2);
 
+void atom_printBondGraph(Atom* atoms,int n);
+
 #endif

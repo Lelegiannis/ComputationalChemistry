@@ -90,5 +90,11 @@ int main(int argc,char* argv[]){
 		printf("-----------------\n");
 	}
 
+	atom_printBondGraph(allAtoms,numOfAtoms);
+
+	for(atomCount = 0; atomCount < numOfAtoms; atomCount++){
+		atom_destroy(allAtoms[atomCount]);
+	}
+	free(allAtoms);
 	return 0;
 }

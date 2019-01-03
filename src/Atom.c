@@ -4,6 +4,8 @@
 #include <math.h>
 #include "Atom.h"
 
+#define COV_RAD_CONST 1.2F
+
 struct Atom{
 	char type[2];
 	float x;
@@ -79,5 +81,39 @@ float atom_bondLength(Atom atom1,Atom atom2){
 void atom_destroy(Atom atom){
 	if(atom != NULL){
 		free(atom);
+	}
+}
+
+float atom_covalentRadius(Atom atom){
+	if(atom->type[0] == 'H' && atom->type[1] == '\0'){
+		return 0.37F;
+	}else if(atom->type[0] == 'O' && atom->type[1] == '\0'){
+		return 0.73F;
+	}else if(atom->type[0] == 'C' && atom->type[1] == '\0'){
+		return 0.77F;
+	}else if(atom->type[0] == 'N' && atom->type[1] == '\0'){
+		return 0.75F;
+	}else{
+		return 0.0F;
+	}
+}
+
+void atom_printBondGraph(Atom* atoms,int n){
+	int i,j;
+	for(i = 0; i < n; i++){
+		printf("%c%c:",atoms[i]->type[0],atoms[i]->type[1]);
+		for(j = 0; j < n; j++){
+			float i_covalentRadius = atom_covalentRadius(atoms[i]);
+			float j_covalentRadius = atom_covalentRadius(atoms[j]);
+			float distance = atom_bondLength(atoms[i],atoms[j]);
+			if(distance == 0.0F){
+				continue;
+			}
+
+			if(distance <= COV_RAD_CONST*(i_covalentRadius + j_covalentRadius)){
+				printf(" %d",j);
+			}
+		}
+		printf("\n");
 	}
 }
